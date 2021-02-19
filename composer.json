@@ -1,7 +1,8 @@
 {
-    "name": "milleradulu/cooperative-bank-sdk",
+    "name": "frog/cooperative-bank-sdk",
     "description": "This SDK makes requests to the cooperative bank API to enable easy integration",
     "keywords": [
+        "frog",
         "milleradulu",
         "cooperative-bank-sdk"
     ],
@@ -16,25 +17,27 @@
         }
     ],
     "require": {
-        "php": "^7.1"
+        "ext-curl": "*",
+        "php": "^7.3|^8.0",
+        "vlucas/phpdotenv": "^5.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.0"
+        "pestphp/pest": "^1.0",
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "MillerAdulu\\CooperativeBankSdk\\": "src"
+            "FROG\\CooperativeBankSdk\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "MillerAdulu\\CooperativeBankSdk\\Tests\\": "tests"
+            "FROG\\CooperativeBankSdk\\Tests\\": "tests"
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
+        "test": "vendor\\bin\\pest",
+        "test-coverage": "vendor\\bin\\phpunit --coverage-html coverage"
     },
     "config": {
         "sort-packages": true
