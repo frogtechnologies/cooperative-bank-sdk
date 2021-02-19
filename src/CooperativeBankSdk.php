@@ -13,8 +13,6 @@ class CooperativeBankSdk
         print "Response\n";
     }
 
-    // Build your next great package.
-
     public function generate_access_token()
     {
         $dotenv = Dotenv::createImmutable(__DIR__);
@@ -48,6 +46,51 @@ class CooperativeBankSdk
             $result = json_decode($response);
 
         curl_close($cURL);
+
+        return $result;
+    }
+
+    public function check_account_balance(
+        string $access_token,
+        string $message_reference,
+        string $account_number,
+    ) {
+        $dotenv = Dotenv::createImmutable(__DIR__);
+        $dotenv->load();
+
+        $coop_base_url = $_ENV['COOP_API_BASE_URL'];
+
+        $auth_headers = [
+            "Authorization: Bearer {$access_token}",
+            "Content-Type: application/json",
+        ];
+
+        $request_body = [
+            'MessageReference' => $message_reference,
+            'AccountNumber' => $account_number,
+        ];
+
+        $options = [
+            CURLOPT_URL => $coop_base_url . '/Enquiry/AccountBalance/1.0.0',
+            CURLOPT_HTTPHEADER => $auth_headers,
+            CURLOPT_SSL_VERIFYPEER  => false,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => json_encode($request_body),
+        ];
+
+        $cURL = curl_init();
+        curl_setopt_array($cURL, $options);
+        $response = curl_exec($cURL);
+
+        if ($response === false) {
+            $result = curl_error($cURL);
+        } else {
+            $result = json_decode($response);
+        }
+
+        curl_close($cURL);
+
 
         return $result;
     }
