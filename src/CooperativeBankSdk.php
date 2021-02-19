@@ -4,7 +4,17 @@ namespace FROG\CooperativeBankSdk;
 
 use Dotenv\Dotenv;
 
-class CooperativeBankSdk
+interface  CooperativeBankSdk
+{
+    public function generate_access_token();
+    public function check_account_balance(
+        string $access_token,
+        string $message_reference,
+        string $account_number,
+    );
+}
+
+class CooperativeBankSdkImplementation implements CooperativeBankSdk
 {
     function printer($content)
     {
