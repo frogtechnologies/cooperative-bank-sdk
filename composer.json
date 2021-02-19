@@ -1,0 +1,42 @@
+{
+    "name": "milleradulu/cooperative-bank-sdk",
+    "description": "This SDK makes requests to the cooperative bank API to enable easy integration",
+    "keywords": [
+        "milleradulu",
+        "cooperative-bank-sdk"
+    ],
+    "homepage": "https://github.com/frogtechnologies/cooperative-bank-sdk",
+    "license": "Mozilla Public License 2.0",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Miller Adulu",
+            "email": "milleradulu@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MillerAdulu\\CooperativeBankSdk\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MillerAdulu\\CooperativeBankSdk\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
