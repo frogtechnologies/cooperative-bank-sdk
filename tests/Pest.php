@@ -39,7 +39,44 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function get_valid_auth_options()
 {
-    // ..
+    $consumer_key = "zuP_MW9YUs69mpXPZaubHnEo1x8a";
+    $consumer_secret = "lWzT7h9UGmsflIP0xzjCQSoV77wa";
+    $coop_base_url = "http://developer.co-opbank.co.ke:8280";
+
+    $base_64_auth = base64_encode("$consumer_key:$consumer_secret");
+
+    $auth_headers = ["Authorization: Basic {$base_64_auth}"];
+    $auth_data = "grant_type=client_credentials";
+
+    return [
+        CURLOPT_URL => $coop_base_url . '/token',
+        CURLOPT_HTTPHEADER => $auth_headers,
+        CURLOPT_SSL_VERIFYPEER  => false,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => $auth_data,
+    ];
+}
+
+function get_valid_req_options(
+    string $access_token,
+    string $path,
+    array $body
+) {
+    $coop_base_url = "http://developer.co-opbank.co.ke:8280";
+    $auth_headers = [
+        "Authorization: Bearer {$access_token}",
+        "Content-Type: application/json",
+    ];
+
+    return [
+        CURLOPT_URL => $coop_base_url . $path,
+        CURLOPT_HTTPHEADER => $auth_headers,
+        CURLOPT_SSL_VERIFYPEER  => false,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode($body),
+    ];
 }
