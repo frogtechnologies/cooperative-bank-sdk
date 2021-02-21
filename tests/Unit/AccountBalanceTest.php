@@ -1,7 +1,7 @@
 <?php
 
 use FROG\CooperativeBankSdk\CooperativeBankSdk;
-use FROG\CooperativeBankSdk\Curl\SAI_CurlStub;
+use FROG\PhpCurlSAI\SAI_CurlStub;
 
 it('can get the account balance of a valid account', function () {
 

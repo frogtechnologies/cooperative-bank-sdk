@@ -3,8 +3,8 @@
 namespace FROG\CooperativeBankSdk;
 
 use Dotenv\Dotenv;
-use FROG\CooperativeBankSdk\Curl\SAI_Curl;
-use FROG\CooperativeBankSdk\Curl\SAI_CurlInterface;
+use FROG\PhpCurlSAI\SAI_Curl;
+use FROG\PhpCurlSAI\SAI_CurlInterface;
 
 class  CooperativeBankSdk
 {
@@ -59,7 +59,6 @@ class  CooperativeBankSdk
             $result = json_decode($response);
             $this->printer($response);
         }
-
 
         $this->cURL->curl_close($ch);
 
