@@ -7,7 +7,7 @@
         "cooperative-bank-sdk"
     ],
     "homepage": "https://github.com/frogtechnologies/cooperative-bank-sdk",
-    "license": "Mozilla Public License 2.0",
+    "license": "MIT",
     "type": "library",
     "authors": [
         {
