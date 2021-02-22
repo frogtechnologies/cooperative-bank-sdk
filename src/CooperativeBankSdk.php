@@ -10,6 +10,11 @@ class  CooperativeBankSdk
 {
     protected $cURL;
 
+    // Hard coded defaults for the testing environment
+    protected $consumer_key = "zuP_MW9YUs69mpXPZaubHnEo1x8a";
+    protected $consumer_secret = "lWzT7h9UGmsflIP0xzjCQSoV77wa";
+    protected $base_url = "http://developer.co-opbank.co.ke:8280";
+
     public function __construct(
         SAI_CurlInterface $cURL = null
     ) {
@@ -27,12 +32,16 @@ class  CooperativeBankSdk
 
     public function generate_access_token()
     {
-        $dotenv = Dotenv::createImmutable(__DIR__);
-        $dotenv->load();
+        try {
+            $dotenv = Dotenv::createImmutable(__DIR__);
+            $dotenv->load();
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
 
-        $consumer_key = $_ENV['COOP_CONSUMER_KEY'];
-        $consumer_secret = $_ENV['COOP_CONSUMER_SECRET'];
-        $coop_base_url = $_ENV['COOP_API_BASE_URL'];
+        $consumer_key = $_ENV['COOP_CONSUMER_KEY'] ?? $this->consumer_key;
+        $consumer_secret = $_ENV['COOP_CONSUMER_SECRET'] ?? $this->consumer_secret;
+        $coop_base_url = $_ENV['COOP_API_BASE_URL'] ?? $this->base_url;
 
         $base_64_auth = base64_encode("$consumer_key:$consumer_secret");
 
@@ -70,10 +79,14 @@ class  CooperativeBankSdk
         string $message_reference,
         string $account_number
     ) {
-        $dotenv = Dotenv::createImmutable(__DIR__);
-        $dotenv->load();
+        try {
+            $dotenv = Dotenv::createImmutable(__DIR__);
+            $dotenv->load();
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
 
-        $coop_base_url = $_ENV['COOP_API_BASE_URL'];
+        $coop_base_url = $_ENV['COOP_API_BASE_URL'] ?? $this->base_url;
 
         $auth_headers = [
             "Authorization: Bearer {$access_token}",
