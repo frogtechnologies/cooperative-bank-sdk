@@ -1,18 +1,17 @@
-# Very short description of the package
+# Description
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/milleradulu/cooperative-bank-sdk.svg?style=flat-square)](https://packagist.org/packages/milleradulu/cooperative-bank-sdk)
-[![Build Status](https://img.shields.io/travis/milleradulu/cooperative-bank-sdk/master.svg?style=flat-square)](https://travis-ci.org/milleradulu/cooperative-bank-sdk)
-[![Quality Score](https://img.shields.io/scrutinizer/g/milleradulu/cooperative-bank-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/milleradulu/cooperative-bank-sdk)
-[![Total Downloads](https://img.shields.io/packagist/dt/milleradulu/cooperative-bank-sdk.svg?style=flat-square)](https://packagist.org/packages/milleradulu/cooperative-bank-sdk)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/milleradulu/cooperative-bank-sdk.svg?style=flat-square)](https://packagist.org/packages/frog/cooperative-bank-sdk)
+[![Build Status](https://img.shields.io/travis/milleradulu/cooperative-bank-sdk/master.svg?style=flat-square)](https://travis-ci.org/frog/cooperative-bank-sdk)
+[![Total Downloads](https://img.shields.io/packagist/dt/milleradulu/cooperative-bank-sdk.svg?style=flat-square)](https://packagist.org/packages/frog/cooperative-bank-sdk)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+An SDK to aid interaction with the Cooperative Bank API
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require milleradulu/cooperative-bank-sdk
+composer require frog/cooperative-bank-sdk
 ```
 
 ## Usage
