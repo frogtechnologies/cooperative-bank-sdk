@@ -17,14 +17,13 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^7.3|^8.0",
         "ext-curl": "*",
         "frog/php-curl-sai": "1.1.1",
         "vlucas/phpdotenv": "^5.3"
     },
     "require-dev": {
         "pestphp/pest": "^1.0",
-        "phpstan/phpstan": "^0.12.79",
         "phpunit/phpunit": "^9.5"
     },
     "autoload": {
@@ -39,8 +38,7 @@
     },
     "scripts": {
         "test": "vendor\\bin\\pest",
-        "test-coverage": "vendor\\bin\\pest --coverage-text --coverage-clover=coverage.clover",
-        "stan": "vendor\\bin\\phpstan analyse src tests --level=6"
+        "test-coverage": "vendor\\bin\\pest --coverage-text --coverage-clover=coverage.clover"
     },
     "config": {
         "sort-packages": true
