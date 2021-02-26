@@ -2,6 +2,7 @@
 
 use FROG\CooperativeBankSdk\CooperativeBankEndpoint;
 use FROG\CooperativeBankSdk\CooperativeBankSdk;
+use FROG\CooperativeBankSdk\CoopUtils;
 use FROG\CooperativeBankSdk\Tests\Unit\AccountTransaction\AccountTransactionsResponse;
 use FROG\PhpCurlSAI\SAI_CurlStub;
 
@@ -17,7 +18,7 @@ it('can get the account transactions of a valid account', function () {
     );
     $token_result = $sdk->generate_access_token();
 
-    $message_reference = generate_message_reference();
+    $message_reference = CoopUtils::generate_message_reference();
     $request_body = [
         'MessageReference' => $message_reference,
         'AccountNumber' => "36001873000",
@@ -35,9 +36,9 @@ it('can get the account transactions of a valid account', function () {
     );
 
     $result = $sdk->get_account_transactions(
-        $message_reference,
         "36001873000",
         "3",
+        $message_reference,
     );
 
     confirm_standard_response($result);
@@ -59,7 +60,7 @@ it('fails if the number of transactions is more than the allowed limit', functio
     );
     $token_result = $sdk->generate_access_token();
 
-    $message_reference = generate_message_reference();
+    $message_reference = CoopUtils::generate_message_reference();
     $request_body = [
         'MessageReference' => $message_reference,
         'AccountNumber' => "36001873000",
@@ -77,9 +78,9 @@ it('fails if the number of transactions is more than the allowed limit', functio
     );
 
     $result = $sdk->get_account_transactions(
-        $message_reference,
         "36001873000",
         "501",
+        $message_reference,
     );
     confirm_standard_response($result);
 });
@@ -95,7 +96,7 @@ it('fails if the number of transactions is less than the allowed limit', functio
     );
     $token_result = $sdk->generate_access_token();
 
-    $message_reference = generate_message_reference();
+    $message_reference = CoopUtils::generate_message_reference();
     $request_body = [
         'MessageReference' => $message_reference,
         'AccountNumber' => "36001873000",
@@ -113,9 +114,9 @@ it('fails if the number of transactions is less than the allowed limit', functio
     );
 
     $result = $sdk->get_account_transactions(
-        $message_reference,
         "36001873000",
         "0",
+        $message_reference,
     );
     confirm_standard_response($result);
 });

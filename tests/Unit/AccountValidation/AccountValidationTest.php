@@ -2,6 +2,7 @@
 
 use FROG\CooperativeBankSdk\CooperativeBankEndpoint;
 use FROG\CooperativeBankSdk\CooperativeBankSdk;
+use FROG\CooperativeBankSdk\CoopUtils;
 use FROG\CooperativeBankSdk\Tests\Unit\AccountValidation\AccountValidationResponse;
 use FROG\PhpCurlSAI\SAI_CurlStub;
 
@@ -16,7 +17,7 @@ it('validates a valid account', function () {
     );
     $token_result = $sdk->generate_access_token();
 
-    $message_reference = generate_message_reference();
+    $message_reference = CoopUtils::generate_message_reference();
     $request_body = [
         'MessageReference' => $message_reference,
         'AccountNumber' => "36001873000",
@@ -33,8 +34,8 @@ it('validates a valid account', function () {
     );
 
     $result = $sdk->validate_account(
-        $message_reference,
         "36001873000",
+        $message_reference,
     );
 
     confirm_standard_response($result);
@@ -56,7 +57,7 @@ it('fails to validate an invalid account', function () {
     );
     $token_result = $sdk->generate_access_token();
 
-    $message_reference = generate_message_reference();
+    $message_reference = CoopUtils::generate_message_reference();
     $request_body = [
         'MessageReference' => $message_reference,
         'AccountNumber' => "3600187300",
@@ -73,8 +74,8 @@ it('fails to validate an invalid account', function () {
     );
 
     $result = $sdk->validate_account(
-        $message_reference,
         "3600187300",
+        $message_reference,
     );
 
     confirm_standard_response($result);

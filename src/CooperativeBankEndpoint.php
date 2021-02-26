@@ -2,6 +2,10 @@
 
 namespace FROG\CooperativeBankSdk;
 
+/**
+ * Specifies the default variables and endpoint to use in the testing environment.
+ * 
+ */
 class CooperativeBankEndpoint
 {
     const DEFAULT_BASE_URL = "http://developer.co-opbank.co.ke:8280";

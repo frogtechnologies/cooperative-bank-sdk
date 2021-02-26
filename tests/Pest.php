@@ -89,14 +89,6 @@ function get_valid_req_options(
     ];
 }
 
-/**
- * @return string
- */
-function generate_message_reference(): string
-{
-    $bytes = random_bytes(19);
-    return substr(strtr(base64_encode($bytes), '+/', '-_'), 0, 19);
-}
 
 function confirm_standard_response(object $result): void
 {

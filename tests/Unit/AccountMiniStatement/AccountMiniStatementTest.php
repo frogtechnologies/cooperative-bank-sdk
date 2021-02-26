@@ -2,6 +2,7 @@
 
 use FROG\CooperativeBankSdk\CooperativeBankEndpoint;
 use FROG\CooperativeBankSdk\CooperativeBankSdk;
+use FROG\CooperativeBankSdk\CoopUtils;
 use FROG\CooperativeBankSdk\Tests\Unit\AccountMiniStatement\AccountMiniStatementResponse;
 use FROG\PhpCurlSAI\SAI_CurlStub;
 
@@ -17,7 +18,7 @@ it('can get the account mini statement', function () {
   );
   $token_result = $sdk->generate_access_token();
 
-  $message_reference = generate_message_reference();
+  $message_reference = CoopUtils::generate_message_reference();
   $request_body = [
     'MessageReference' => $message_reference,
     'AccountNumber' => "36001873000",
@@ -36,10 +37,10 @@ it('can get the account mini statement', function () {
   );
 
   $result = $sdk->get_account_mini_statement(
-    $message_reference,
     "36001873000",
     "2020-11-12",
     "2021-02-26",
+    $message_reference,
   );
 
   confirm_standard_response($result);
@@ -61,7 +62,7 @@ it('fails if the date range is more than 6 months from the current date', functi
   );
   $token_result = $sdk->generate_access_token();
 
-  $message_reference = generate_message_reference();
+  $message_reference = CoopUtils::generate_message_reference();
   $request_body = [
     'MessageReference' => $message_reference,
     'AccountNumber' => "36001873000",
@@ -80,10 +81,10 @@ it('fails if the date range is more than 6 months from the current date', functi
   );
 
   $result = $sdk->get_account_mini_statement(
-    $message_reference,
     "36001873000",
     "2020-08-12",
     "2020-11-12",
+    $message_reference,
   );
 
   confirm_standard_response($result);

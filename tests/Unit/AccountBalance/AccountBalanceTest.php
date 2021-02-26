@@ -2,6 +2,7 @@
 
 use FROG\CooperativeBankSdk\CooperativeBankEndpoint;
 use FROG\CooperativeBankSdk\CooperativeBankSdk;
+use FROG\CooperativeBankSdk\CoopUtils;
 use FROG\CooperativeBankSdk\Tests\Unit\AccountBalance\AccountBalanceResponse;
 use FROG\PhpCurlSAI\SAI_CurlStub;
 
@@ -17,7 +18,7 @@ it('can get the account balance of a valid account', function () {
     );
     $token_result = $sdk->generate_access_token();
 
-    $message_reference = generate_message_reference();
+    $message_reference = CoopUtils::generate_message_reference();
     $request_body = [
         'MessageReference' => $message_reference,
         'AccountNumber' => "36001873000",
@@ -34,8 +35,8 @@ it('can get the account balance of a valid account', function () {
     );
 
     $result = $sdk->check_account_balance(
-        $message_reference,
         "36001873000",
+        $message_reference
     );
 
     confirm_standard_response($result);
@@ -83,8 +84,8 @@ it('fails to get the account balance if the message reference is longer that the
     );
 
     $result = $sdk->check_account_balance(
-        "ac980b8e-afe5-49b8-b348-d0af00e2f556",
         "36001873000",
+        "ac980b8e-afe5-49b8-b348-d0af00e2f556",
     );
 
     confirm_standard_response($result);

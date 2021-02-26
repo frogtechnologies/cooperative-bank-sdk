@@ -2,6 +2,7 @@
 
 use FROG\CooperativeBankSdk\CooperativeBankEndpoint;
 use FROG\CooperativeBankSdk\CooperativeBankSdk;
+use FROG\CooperativeBankSdk\CoopUtils;
 use FROG\CooperativeBankSdk\Tests\Unit\AccountFullStatement\AccountFullStatementResponse;
 use FROG\PhpCurlSAI\SAI_CurlStub;
 
@@ -17,7 +18,7 @@ it('can get the account full statement', function () {
   );
   $token_result = $sdk->generate_access_token();
 
-  $message_reference = generate_message_reference();
+  $message_reference = CoopUtils::generate_message_reference();
   $request_body = [
     'MessageReference' => $message_reference,
     'AccountNumber' => "36001873000",
@@ -36,10 +37,10 @@ it('can get the account full statement', function () {
   );
 
   $result = $sdk->get_account_full_statement(
-    $message_reference,
     "36001873000",
     "2009-05-12",
     "2020-11-12",
+    $message_reference,
   );
 
   confirm_standard_response($result);
