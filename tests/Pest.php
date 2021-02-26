@@ -24,9 +24,7 @@
 |
 */
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
-});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,11 +37,16 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function get_valid_auth_options()
+use FROG\CooperativeBankSdk\CooperativeBankEndpoint;
+
+/**
+ * @return array<int, mixed> 
+ */
+function get_valid_auth_options(): array
 {
-    $consumer_key = "zuP_MW9YUs69mpXPZaubHnEo1x8a";
-    $consumer_secret = "lWzT7h9UGmsflIP0xzjCQSoV77wa";
-    $coop_base_url = "http://developer.co-opbank.co.ke:8280";
+    $consumer_key = CooperativeBankEndpoint::DEFAULT_CONSUMER_KEY;
+    $consumer_secret = CooperativeBankEndpoint::DEFAULT_CONSUMER_SECRET;
+    $coop_base_url = CooperativeBankEndpoint::DEFAULT_BASE_URL;
 
     $base_64_auth = base64_encode("$consumer_key:$consumer_secret");
 
@@ -60,23 +63,48 @@ function get_valid_auth_options()
     ];
 }
 
+/**
+ * @param string $access_token
+ * @param string $path
+ * @param array<string, mixed> $body
+ * @return array<int, mixed> 
+ */
 function get_valid_req_options(
     string $access_token,
     string $path,
     array $body
-) {
-    $coop_base_url = "http://developer.co-opbank.co.ke:8280";
+): array {
     $auth_headers = [
         "Authorization: Bearer {$access_token}",
         "Content-Type: application/json",
     ];
 
     return [
-        CURLOPT_URL => $coop_base_url . $path,
+        CURLOPT_URL => CooperativeBankEndpoint::DEFAULT_BASE_URL . $path,
         CURLOPT_HTTPHEADER => $auth_headers,
         CURLOPT_SSL_VERIFYPEER  => false,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => json_encode($body),
     ];
+}
+
+
+function confirm_standard_response(object $result): void
+{
+    expect($result)->toBeObject();
+    expect($result)->toHaveProperty('MessageReference');
+    expect($result)->toHaveProperty('MessageDateTime');
+    expect($result)->toHaveProperty('MessageCode');
+    expect($result)->toHaveProperty('MessageDescription');
+}
+
+
+function confirm_standard_response_v2(object $result): void
+{
+    expect($result)->toBeObject();
+    expect($result)->toHaveProperty('messageReference');
+    expect($result)->toHaveProperty('messageDateTime');
+    expect($result)->toHaveProperty('messageCode');
+    expect($result)->toHaveProperty('messageDescription');
 }

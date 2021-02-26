@@ -1,6 +1,9 @@
 <?php
 
+use FROG\CooperativeBankSdk\CooperativeBankEndpoint;
 use FROG\CooperativeBankSdk\CooperativeBankSdk;
+use FROG\CooperativeBankSdk\CoopUtils;
+use FROG\CooperativeBankSdk\Tests\Unit\AccountBalance\AccountBalanceResponse;
 use FROG\PhpCurlSAI\SAI_CurlStub;
 
 it('can get the account balance of a valid account', function () {
@@ -10,39 +13,33 @@ it('can get the account balance of a valid account', function () {
 
     // Setup to successfully retrieve token
     $cURL->setResponse(
-        '{"access_token":"4fbb7b9e-9c73-3155-ac14-c14fe744d104","scope":"am_application_scope default","token_type":"Bearer","expires_in":3600}',
+        AccountBalanceResponse::auth_success(),
         get_valid_auth_options()
     );
     $token_result = $sdk->generate_access_token();
 
-    $bytes = random_bytes(19);
-    $message_reference = substr(strtr(base64_encode($bytes), '+/', '-_'), 0, 19);
-
+    $message_reference = CoopUtils::generate_message_reference();
     $request_body = [
         'MessageReference' => $message_reference,
         'AccountNumber' => "36001873000",
     ];
+
     // Setup to successfully retrieve account balance
     $cURL->setResponse(
-        '{"MessageReference":"EMj0thurFs9Lb0yJ0ve","MessageDateTime":"2021-02-21 22:16:26","MessageCode":"0","MessageDescription":"Success","AccountNumber":"36001873000","AccountName":"JOE K. DOE","Currency":"USD","ProductName":"CURRENT ACCOUNT","ClearedBalance":"13706.07","BookedBalance":"75391.31","BlockedBalance":"27066.64","AvailableBalance":"21962.96","ArrearsAmount":"12645.56","BranchName":"GIGIRI MALL","BranchSortCode":"11151","AverageBalance":"27339.95","UnclearedBalance":"26658.48","ODLimit":"17614.28","CreditLimit":"23181.53"}',
+        AccountBalanceResponse::success(),
         get_valid_req_options(
             $token_result->access_token,
-            '/Enquiry/AccountBalance/1.0.0',
+            CooperativeBankEndpoint::ACCOUNT_BALANCE,
             $request_body,
         )
     );
 
     $result = $sdk->check_account_balance(
-        $token_result->access_token,
-        $message_reference,
         "36001873000",
+        $message_reference
     );
 
-    expect($result)->toBeObject();
-    expect($result)->toHaveProperty('MessageReference');
-    expect($result)->toHaveProperty('MessageDateTime');
-    expect($result)->toHaveProperty('MessageCode');
-    expect($result)->toHaveProperty('MessageDescription');
+    confirm_standard_response($result);
     expect($result)->toHaveProperty('AccountNumber');
     expect($result)->toHaveProperty('AccountName');
     expect($result)->toHaveProperty('Currency');
@@ -66,7 +63,7 @@ it('fails to get the account balance if the message reference is longer that the
 
     // Setup to successfully retrieve token
     $cURL->setResponse(
-        '{"access_token":"4fbb7b9e-9c73-3155-ac14-c14fe744d104","scope":"am_application_scope default","token_type":"Bearer","expires_in":3600}',
+        AccountBalanceResponse::auth_success(),
         get_valid_auth_options()
     );
     $token_result = $sdk->generate_access_token();
@@ -78,23 +75,18 @@ it('fails to get the account balance if the message reference is longer that the
 
     // Setup to fail account balance retrieval
     $cURL->setResponse(
-        '{"MessageReference":"ac980b8e-afe5-49b8-b348-d0af00e2f556","MessageDateTime":"2021-02-21 22:20:32","MessageCode":"-11","MessageDescription":"MESSAGE REFERENCE LONGER THAN ALLOWED LENGTH"}',
+        AccountBalanceResponse::long_message_ref_error(),
         get_valid_req_options(
             $token_result->access_token,
-            '/Enquiry/AccountBalance/1.0.0',
+            CooperativeBankEndpoint::ACCOUNT_BALANCE,
             $request_body,
         )
     );
 
     $result = $sdk->check_account_balance(
-        $token_result->access_token,
-        "ac980b8e-afe5-49b8-b348-d0af00e2f556",
         "36001873000",
+        "ac980b8e-afe5-49b8-b348-d0af00e2f556",
     );
 
-    expect($result)->toBeObject();
-    expect($result)->toHaveProperty('MessageReference');
-    expect($result)->toHaveProperty('MessageDateTime');
-    expect($result)->toHaveProperty('MessageCode');
-    expect($result)->toHaveProperty('MessageDescription');
+    confirm_standard_response($result);
 });
