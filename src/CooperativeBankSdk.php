@@ -65,7 +65,7 @@ class  CooperativeBankSdk
             $result = $this->cURL->curl_error($ch);
         } else {
             $result = json_decode($response);
-            // $this->printer($response);
+            $this->printer($response);
         }
 
         $this->cURL->curl_close($ch);
