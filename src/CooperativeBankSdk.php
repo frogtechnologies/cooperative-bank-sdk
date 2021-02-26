@@ -128,7 +128,7 @@ class  CooperativeBankSdk
         string $message_reference,
         string $account_number,
         string $start_date,
-        string $end_date,
+        string $end_date
     ): ?object {
 
         try {
@@ -181,7 +181,7 @@ class  CooperativeBankSdk
         string $message_reference,
         string $account_number,
         string $start_date,
-        string $end_date,
+        string $end_date
     ): ?object {
 
         try {
