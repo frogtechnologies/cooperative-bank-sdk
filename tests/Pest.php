@@ -80,3 +80,18 @@ function get_valid_req_options(
         CURLOPT_POSTFIELDS => json_encode($body),
     ];
 }
+
+function generate_message_reference()
+{
+    $bytes = random_bytes(19);
+    return substr(strtr(base64_encode($bytes), '+/', '-_'), 0, 19);
+}
+
+function confirm_standard_response($result)
+{
+    expect($result)->toBeObject();
+    expect($result)->toHaveProperty('MessageReference');
+    expect($result)->toHaveProperty('MessageDateTime');
+    expect($result)->toHaveProperty('MessageCode');
+    expect($result)->toHaveProperty('MessageDescription');
+}

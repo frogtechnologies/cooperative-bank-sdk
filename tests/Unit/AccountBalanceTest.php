@@ -15,13 +15,12 @@ it('can get the account balance of a valid account', function () {
     );
     $token_result = $sdk->generate_access_token();
 
-    $bytes = random_bytes(19);
-    $message_reference = substr(strtr(base64_encode($bytes), '+/', '-_'), 0, 19);
-
+    $message_reference = generate_message_reference();
     $request_body = [
         'MessageReference' => $message_reference,
         'AccountNumber' => "36001873000",
     ];
+
     // Setup to successfully retrieve account balance
     $cURL->setResponse(
         '{"MessageReference":"EMj0thurFs9Lb0yJ0ve","MessageDateTime":"2021-02-21 22:16:26","MessageCode":"0","MessageDescription":"Success","AccountNumber":"36001873000","AccountName":"JOE K. DOE","Currency":"USD","ProductName":"CURRENT ACCOUNT","ClearedBalance":"13706.07","BookedBalance":"75391.31","BlockedBalance":"27066.64","AvailableBalance":"21962.96","ArrearsAmount":"12645.56","BranchName":"GIGIRI MALL","BranchSortCode":"11151","AverageBalance":"27339.95","UnclearedBalance":"26658.48","ODLimit":"17614.28","CreditLimit":"23181.53"}',
@@ -38,11 +37,7 @@ it('can get the account balance of a valid account', function () {
         "36001873000",
     );
 
-    expect($result)->toBeObject();
-    expect($result)->toHaveProperty('MessageReference');
-    expect($result)->toHaveProperty('MessageDateTime');
-    expect($result)->toHaveProperty('MessageCode');
-    expect($result)->toHaveProperty('MessageDescription');
+    confirm_standard_response($result);
     expect($result)->toHaveProperty('AccountNumber');
     expect($result)->toHaveProperty('AccountName');
     expect($result)->toHaveProperty('Currency');
@@ -92,9 +87,5 @@ it('fails to get the account balance if the message reference is longer that the
         "36001873000",
     );
 
-    expect($result)->toBeObject();
-    expect($result)->toHaveProperty('MessageReference');
-    expect($result)->toHaveProperty('MessageDateTime');
-    expect($result)->toHaveProperty('MessageCode');
-    expect($result)->toHaveProperty('MessageDescription');
+    confirm_standard_response($result);
 });
