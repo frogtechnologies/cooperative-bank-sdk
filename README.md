@@ -227,6 +227,28 @@ print_r($status);
 //   "MessageCode": "0",
 //   "MessageDescription": "VALID ACCOUNT NUMBER"
 // }
+
+/**
+ * Retrieves the exhange rate for the day for a specific account
+ * 
+ * @param string $from_currency a valid international currency
+ * @param string $to_currency a valid international currency
+ * @param string $message_reference a unique client generated string to be a reference when a request is sent
+ */
+$rate = $coop_sdk->exchange_rate("from-currency", "to-currency", "message-reference");
+print_r($rate);
+// {
+//   "MessageReference": "40ca18c6765086089a1",
+//   "MessageDateTime": "2021-02-26 20:31:31",
+//   "MessageCode": "0",
+//   "MessageDescription": "Success",
+//   "FromCurrencyCode": "KES",
+//   "ToCurrencyCode": "USD",
+//   "RateType": "SPOT",
+//   "Rate": "104.35",
+//   "Tolerance": "6",
+//   "MultiplyDivide": "D"
+// }
 ```
 
 ### Testing

@@ -6,12 +6,13 @@ use FROG\PhpCurlSAI\SAI_CurlStub;
 it('can generate an access token', function () {
 
     $cURL = new SAI_CurlStub();
+    $sdk = new CooperativeBankSdk($cURL);
     $cURL->setResponse(
         '{"access_token":"4fbb7b9e-9c73-3155-ac14-c14fe744d104","scope":"am_application_scope default","token_type":"Bearer","expires_in":3600}',
         get_valid_auth_options()
     );
 
-    $sdk = new CooperativeBankSdk();
+
     $result = $sdk->generate_access_token();
 
     expect($result)->toBeObject();
