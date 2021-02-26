@@ -3,7 +3,7 @@
 use FROG\CooperativeBankSdk\CooperativeBankSdk;
 use FROG\PhpCurlSAI\SAI_CurlStub;
 
-it('can get the account mini statement', function () {
+it('can get the account full statement', function () {
 
     $cURL = new SAI_CurlStub();
     $sdk = new CooperativeBankSdk($cURL);
