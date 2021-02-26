@@ -44,9 +44,9 @@ use FROG\CooperativeBankSdk\CooperativeBankEndpoint;
  */
 function get_valid_auth_options(): array
 {
-    $consumer_key = "zuP_MW9YUs69mpXPZaubHnEo1x8a";
-    $consumer_secret = "lWzT7h9UGmsflIP0xzjCQSoV77wa";
-    $coop_base_url = "http://developer.co-opbank.co.ke:8280";
+    $consumer_key = CooperativeBankEndpoint::DEFAULT_CONSUMER_KEY;
+    $consumer_secret = CooperativeBankEndpoint::DEFAULT_CONSUMER_SECRET;
+    $coop_base_url = CooperativeBankEndpoint::DEFAULT_BASE_URL;
 
     $base_64_auth = base64_encode("$consumer_key:$consumer_secret");
 

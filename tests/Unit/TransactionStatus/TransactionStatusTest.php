@@ -32,7 +32,6 @@ it('can get the status of a valid reference message transaction', function () {
     );
 
     $result = $sdk->check_transaction_status(
-        $token_result->access_token,
         "40ca18c6765086089a1",
     );
 
@@ -71,7 +70,6 @@ it('fails to get the status of a non existent reference message', function () {
     );
 
     $result = $sdk->check_transaction_status(
-        $token_result->access_token,
         "BTVd6xr7vEX97hWgNqM",
     );
 

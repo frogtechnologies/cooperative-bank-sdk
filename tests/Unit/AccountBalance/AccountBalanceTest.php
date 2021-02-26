@@ -34,7 +34,6 @@ it('can get the account balance of a valid account', function () {
     );
 
     $result = $sdk->check_account_balance(
-        $token_result->access_token,
         $message_reference,
         "36001873000",
     );
@@ -84,7 +83,6 @@ it('fails to get the account balance if the message reference is longer that the
     );
 
     $result = $sdk->check_account_balance(
-        $token_result->access_token,
         "ac980b8e-afe5-49b8-b348-d0af00e2f556",
         "36001873000",
     );

@@ -68,7 +68,6 @@ class  CooperativeBankSdk
     }
 
     public function check_account_balance(
-        string $access_token,
         string $message_reference,
         string $account_number
     ): ?object {
@@ -80,9 +79,10 @@ class  CooperativeBankSdk
         }
 
         $coop_base_url = $_ENV['COOP_API_BASE_URL'] ?? $this->base_url;
+        $token_result = $this->generate_access_token();
 
         $auth_headers = [
-            "Authorization: Bearer {$access_token}",
+            "Authorization: Bearer {$token_result->access_token}",
             "Content-Type: application/json",
         ];
 
@@ -118,7 +118,6 @@ class  CooperativeBankSdk
     }
 
     public function get_account_full_statement(
-        string $access_token,
         string $message_reference,
         string $account_number,
         string $start_date,
@@ -133,9 +132,10 @@ class  CooperativeBankSdk
         }
 
         $coop_base_url = $_ENV['COOP_API_BASE_URL'] ?? $this->base_url;
+        $token_result = $this->generate_access_token();
 
         $auth_headers = [
-            "Authorization: Bearer {$access_token}",
+            "Authorization: Bearer {$token_result->access_token}",
             "Content-Type: application/json",
         ];
 
@@ -171,7 +171,6 @@ class  CooperativeBankSdk
     }
 
     public function get_account_mini_statement(
-        string $access_token,
         string $message_reference,
         string $account_number,
         string $start_date,
@@ -186,9 +185,10 @@ class  CooperativeBankSdk
         }
 
         $coop_base_url = $_ENV['COOP_API_BASE_URL'] ?? $this->base_url;
+        $token_result = $this->generate_access_token();
 
         $auth_headers = [
-            "Authorization: Bearer {$access_token}",
+            "Authorization: Bearer {$token_result->access_token}",
             "Content-Type: application/json",
         ];
 
@@ -224,7 +224,6 @@ class  CooperativeBankSdk
     }
 
     public function get_account_transactions(
-        string $access_token,
         string $message_reference,
         string $account_number,
         string $no_of_transactions
@@ -237,9 +236,10 @@ class  CooperativeBankSdk
         }
 
         $coop_base_url = $_ENV['COOP_API_BASE_URL'] ?? $this->base_url;
+        $token_result = $this->generate_access_token();
 
         $auth_headers = [
-            "Authorization: Bearer {$access_token}",
+            "Authorization: Bearer {$token_result->access_token}",
             "Content-Type: application/json",
         ];
 
@@ -274,7 +274,6 @@ class  CooperativeBankSdk
     }
 
     public function check_transaction_status(
-        string $access_token,
         string $message_reference
     ): ?object {
         try {
@@ -285,9 +284,10 @@ class  CooperativeBankSdk
         }
 
         $coop_base_url = $_ENV['COOP_API_BASE_URL'] ?? $this->base_url;
+        $token_result = $this->generate_access_token();
 
         $auth_headers = [
-            "Authorization: Bearer {$access_token}",
+            "Authorization: Bearer {$token_result->access_token}",
             "Content-Type: application/json",
         ];
 
@@ -320,7 +320,6 @@ class  CooperativeBankSdk
     }
 
     public function validate_account(
-        string $access_token,
         string $message_reference,
         string $account_number
     ): ?object {
@@ -332,9 +331,10 @@ class  CooperativeBankSdk
         }
 
         $coop_base_url = $_ENV['COOP_API_BASE_URL'] ?? $this->base_url;
+        $token_result = $this->generate_access_token();
 
         $auth_headers = [
-            "Authorization: Bearer {$access_token}",
+            "Authorization: Bearer {$token_result->access_token}",
             "Content-Type: application/json",
         ];
 

@@ -36,7 +36,6 @@ it('can get the account full statement', function () {
   );
 
   $result = $sdk->get_account_full_statement(
-    $token_result->access_token,
     $message_reference,
     "36001873000",
     "2009-05-12",

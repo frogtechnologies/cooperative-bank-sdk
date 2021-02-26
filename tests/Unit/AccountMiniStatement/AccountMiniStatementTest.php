@@ -36,7 +36,6 @@ it('can get the account mini statement', function () {
   );
 
   $result = $sdk->get_account_mini_statement(
-    $token_result->access_token,
     $message_reference,
     "36001873000",
     "2020-11-12",
@@ -81,7 +80,6 @@ it('fails if the date range is more than 6 months from the current date', functi
   );
 
   $result = $sdk->get_account_mini_statement(
-    $token_result->access_token,
     $message_reference,
     "36001873000",
     "2020-08-12",

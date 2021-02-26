@@ -35,7 +35,6 @@ it('can get the account transactions of a valid account', function () {
     );
 
     $result = $sdk->get_account_transactions(
-        $token_result->access_token,
         $message_reference,
         "36001873000",
         "3",
@@ -78,7 +77,6 @@ it('fails if the number of transactions is more than the allowed limit', functio
     );
 
     $result = $sdk->get_account_transactions(
-        $token_result->access_token,
         $message_reference,
         "36001873000",
         "501",
@@ -115,7 +113,6 @@ it('fails if the number of transactions is less than the allowed limit', functio
     );
 
     $result = $sdk->get_account_transactions(
-        $token_result->access_token,
         $message_reference,
         "36001873000",
         "0",

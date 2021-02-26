@@ -33,7 +33,6 @@ it('validates a valid account', function () {
     );
 
     $result = $sdk->validate_account(
-        $token_result->access_token,
         $message_reference,
         "36001873000",
     );
@@ -74,7 +73,6 @@ it('fails to validate an invalid account', function () {
     );
 
     $result = $sdk->validate_account(
-        $token_result->access_token,
         $message_reference,
         "3600187300",
     );
