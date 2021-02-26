@@ -105,3 +105,13 @@ function confirm_standard_response(object $result): void
     expect($result)->toHaveProperty('MessageCode');
     expect($result)->toHaveProperty('MessageDescription');
 }
+
+
+function confirm_standard_response_v2(object $result): void
+{
+    expect($result)->toBeObject();
+    expect($result)->toHaveProperty('messageReference');
+    expect($result)->toHaveProperty('messageDateTime');
+    expect($result)->toHaveProperty('messageCode');
+    expect($result)->toHaveProperty('messageDescription');
+}
