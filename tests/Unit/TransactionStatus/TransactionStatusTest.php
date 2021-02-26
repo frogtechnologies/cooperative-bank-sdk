@@ -1,5 +1,6 @@
 <?php
 
+use FROG\CooperativeBankSdk\CooperativeBankEndpoint;
 use FROG\CooperativeBankSdk\CooperativeBankSdk;
 use FROG\CooperativeBankSdk\Tests\Unit\TransactionStatus\TransactionStatusResponse;
 use FROG\PhpCurlSAI\SAI_CurlStub;
@@ -25,7 +26,7 @@ it('can get the status of a valid reference message transaction', function () {
         TransactionStatusResponse::success(),
         get_valid_req_options(
             $token_result->access_token,
-            '/Enquiry/TransactionStatus/2.0.0',
+            CooperativeBankEndpoint::TRANSACTION_STATUS,
             $request_body,
         )
     );
@@ -64,7 +65,7 @@ it('fails to get the status of a non existent reference message', function () {
         TransactionStatusResponse::no_message_reference_error(),
         get_valid_req_options(
             $token_result->access_token,
-            '/Enquiry/TransactionStatus/2.0.0',
+            CooperativeBankEndpoint::TRANSACTION_STATUS,
             $request_body,
         )
     );

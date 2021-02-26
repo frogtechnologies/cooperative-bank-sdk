@@ -1,5 +1,6 @@
 <?php
 
+use FROG\CooperativeBankSdk\CooperativeBankEndpoint;
 use FROG\CooperativeBankSdk\CooperativeBankSdk;
 use FROG\CooperativeBankSdk\Tests\Unit\AccountBalance\AccountBalanceResponse;
 use FROG\PhpCurlSAI\SAI_CurlStub;
@@ -27,7 +28,7 @@ it('can get the account balance of a valid account', function () {
         AccountBalanceResponse::success(),
         get_valid_req_options(
             $token_result->access_token,
-            '/Enquiry/AccountBalance/1.0.0',
+            CooperativeBankEndpoint::ACCOUNT_BALANCE,
             $request_body,
         )
     );
@@ -77,7 +78,7 @@ it('fails to get the account balance if the message reference is longer that the
         AccountBalanceResponse::long_message_ref_error(),
         get_valid_req_options(
             $token_result->access_token,
-            '/Enquiry/AccountBalance/1.0.0',
+            CooperativeBankEndpoint::ACCOUNT_BALANCE,
             $request_body,
         )
     );

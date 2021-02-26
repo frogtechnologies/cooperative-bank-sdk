@@ -1,5 +1,6 @@
 <?php
 
+use FROG\CooperativeBankSdk\CooperativeBankEndpoint;
 use FROG\CooperativeBankSdk\CooperativeBankSdk;
 use FROG\CooperativeBankSdk\Tests\Unit\AccountValidation\AccountValidationResponse;
 use FROG\PhpCurlSAI\SAI_CurlStub;
@@ -26,7 +27,7 @@ it('validates a valid account', function () {
         AccountValidationResponse::success(),
         get_valid_req_options(
             $token_result->access_token,
-            '/Enquiry/Validation/Account/1.0.0',
+            CooperativeBankEndpoint::VALIDATE_ACCOUNT,
             $request_body,
         )
     );
@@ -67,7 +68,7 @@ it('fails to validate an invalid account', function () {
         AccountValidationResponse::invalid_account_error(),
         get_valid_req_options(
             $token_result->access_token,
-            '/Enquiry/Validation/Account/1.0.0',
+            CooperativeBankEndpoint::VALIDATE_ACCOUNT,
             $request_body,
         )
     );

@@ -37,6 +37,8 @@
 |
 */
 
+use FROG\CooperativeBankSdk\CooperativeBankEndpoint;
+
 /**
  * @return array<int, mixed> 
  */
@@ -72,14 +74,13 @@ function get_valid_req_options(
     string $path,
     array $body
 ): array {
-    $coop_base_url = "http://developer.co-opbank.co.ke:8280";
     $auth_headers = [
         "Authorization: Bearer {$access_token}",
         "Content-Type: application/json",
     ];
 
     return [
-        CURLOPT_URL => $coop_base_url . $path,
+        CURLOPT_URL => CooperativeBankEndpoint::DEFAULT_BASE_URL . $path,
         CURLOPT_HTTPHEADER => $auth_headers,
         CURLOPT_SSL_VERIFYPEER  => false,
         CURLOPT_RETURNTRANSFER => true,
