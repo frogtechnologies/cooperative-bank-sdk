@@ -26,6 +26,8 @@ COOP_API_BASE_URL=http://developer.co-opbank.co.ke:8280#Testing
 ## Usage
 
 ```php
+use FROG\CooperativeBankSdk\CooperativeBankSdk;
+use FROG\CooperativeBankSdk\CoopUtils;
 
 $coop_sdk = new CooperativeBankSDK();
 
@@ -51,13 +53,26 @@ print_r($access_token);
  * @param string $account_number the cooperative bank account number
  * @param void|string $message_reference an optional message reference
  */
+// Option 1: Pass in your unique internal message reference (UUID's don't work though)
 $balance = $coop_sdk->check_account_balance(
     "account-number",
     "message-reference",
 );
+
+// Or you could use the utility from the package to get a unique message reference before the request is made
+$balance = $coop_sdk->check_account_balance(
+    "account-number",
+    CoopUtils::generate_message_reference(),
+);
+
+// Or let the sdk generate one internally and access the message reference from the response. 
+// All responses usually have message references
+$balance = $coop_sdk->check_account_balance(
+    "account-number",
+);
 print_r($balance);
 // {
-//   "MessageReference": "40ca18c6765086089a1",
+//   "MessageReference": "MESSAGE_REFERENCE_WILL_APPEAR_HERE",
 //   "MessageDateTime": "2021-02-26 15:18:58",
 //   "MessageCode": "0",
 //   "MessageDescription": "Success",
