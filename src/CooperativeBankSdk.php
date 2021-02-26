@@ -8,7 +8,7 @@ use FROG\PhpCurlSAI\SAI_CurlInterface;
 
 class  CooperativeBankSdk
 {
-    protected $cURL;
+    protected SAI_CurlInterface $cURL;
 
     // Hard coded defaults for the testing environment
     protected string $consumer_key = "zuP_MW9YUs69mpXPZaubHnEo1x8a";
