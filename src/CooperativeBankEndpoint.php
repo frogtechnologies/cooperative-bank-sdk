@@ -22,4 +22,6 @@ class CooperativeBankEndpoint
     const ACCOUNT_TRANSACTIONS = "/Enquiry/AccountTransactions/1.0.0";
     const TRANSACTION_STATUS = "/Enquiry/TransactionStatus/2.0.0";
     const VALIDATE_ACCOUNT = "/Enquiry/Validation/Account/1.0.0";
+
+    const EXCHANGE_RATE = "/Enquiry/ExchangeRate/1.0.0";
 }

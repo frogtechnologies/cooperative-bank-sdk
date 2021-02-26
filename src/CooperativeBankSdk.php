@@ -19,7 +19,7 @@ class  CooperativeBankSdk
     /**
      * Sets up the class to use a stubbed cURL implementation class
      * 
-     * @param SAI_CurlInterface|void $cURl: A curl implementation of the SAI_CurlInterface
+     * void|SAI_CurlInterface $cURl: A curl implementation of the SAI_CurlInterface
      */
     public function __construct(
         SAI_CurlInterface $cURL = null
@@ -77,7 +77,7 @@ class  CooperativeBankSdk
             $result = json_decode($response);
         }
 
-        print_r($response);
+        // print_r($response);
 
         $this->cURL->curl_close($ch);
 
@@ -431,6 +431,67 @@ class  CooperativeBankSdk
             $result = json_decode($response);
         }
 
+
+        $this->cURL->curl_close($ch);
+
+        return $result;
+    }
+
+
+    /**
+     * Retrieves the exhange rate for the day for a specific account
+     * 
+     * @param string $from_currency a valid international currency
+     * @param string $to_currency a valid international currency
+     * @param string $message_reference a unique client generated string to be a reference when a request is sent
+     * @return object an stdClass of the response from the API
+     */
+    public function exchange_rate(
+        string $from_currency,
+        string $to_currency,
+        ?string $message_reference = null
+    ) {
+
+        try {
+            $dotenv = Dotenv::createImmutable(__DIR__);
+            $dotenv->load();
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+        $_coop_base_url = $_ENV['COOP_API_BASE_URL'] ?? $this->default_base_url;
+        $_token_result = $this->generate_access_token();
+        $_message_reference = $message_reference ?? CoopUtils::generate_message_reference();
+
+        $auth_headers = [
+            "Authorization: Bearer {$_token_result->access_token}",
+            "Content-Type: application/json",
+        ];
+
+        $request_body = [
+            'MessageReference' => $_message_reference,
+            'FromCurrencyCode' => $from_currency,
+            'ToCurrencyCode' => $to_currency,
+        ];
+
+        $options = [
+            CURLOPT_URL => $_coop_base_url . CooperativeBankEndpoint::EXCHANGE_RATE,
+            CURLOPT_HTTPHEADER => $auth_headers,
+            CURLOPT_SSL_VERIFYPEER  => false,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => json_encode($request_body),
+        ];
+
+        $ch = $this->cURL->curl_init();
+        $this->cURL->curl_setopt_array($ch, $options);
+        $response = $this->cURL->curl_exec($ch);
+
+        if ($response === false) {
+            $result = $this->cURL->curl_error($ch);
+        } else {
+            $result = json_decode($response);
+        }
 
         $this->cURL->curl_close($ch);
 
