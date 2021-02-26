@@ -46,7 +46,7 @@ it('can get the status of a valid reference message transaction', function () {
 it('fails to get the status of a non existent reference message', function () {
 
     $cURL = new SAI_CurlStub();
-    $sdk = new CooperativeBankSdk();
+    $sdk = new CooperativeBankSdk($cURL);
 
     // Setup to successfully retrieve token
     $cURL->setResponse(
