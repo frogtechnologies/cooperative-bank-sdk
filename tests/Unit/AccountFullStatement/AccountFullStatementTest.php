@@ -1,5 +1,6 @@
 <?php
 
+use FROG\CooperativeBankSdk\CooperativeBankEndpoint;
 use FROG\CooperativeBankSdk\CooperativeBankSdk;
 use FROG\CooperativeBankSdk\Tests\Unit\AccountFullStatement\AccountFullStatementResponse;
 use FROG\PhpCurlSAI\SAI_CurlStub;
@@ -29,7 +30,7 @@ it('can get the account full statement', function () {
     AccountFullStatementResponse::success(),
     get_valid_req_options(
       $token_result->access_token,
-      '/Enquiry/MiniStatement/Account/1.0.0',
+      CooperativeBankEndpoint::FULL_STATEMENT,
       $request_body,
     )
   );

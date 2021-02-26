@@ -1,5 +1,6 @@
 <?php
 
+use FROG\CooperativeBankSdk\CooperativeBankEndpoint;
 use FROG\CooperativeBankSdk\CooperativeBankSdk;
 use FROG\CooperativeBankSdk\Tests\Unit\AccountMiniStatement\AccountMiniStatementResponse;
 use FROG\PhpCurlSAI\SAI_CurlStub;
@@ -29,7 +30,7 @@ it('can get the account mini statement', function () {
     AccountMiniStatementResponse::success(),
     get_valid_req_options(
       $token_result->access_token,
-      '/Enquiry/FullStatement/Account/1.0.0',
+      CooperativeBankEndpoint::MINI_STATEMENT,
       $request_body,
     )
   );
@@ -74,7 +75,7 @@ it('fails if the date range is more than 6 months from the current date', functi
     AccountMiniStatementResponse::out_of_range_date_error(),
     get_valid_req_options(
       $token_result->access_token,
-      '/Enquiry/FullStatement/Account/1.0.0',
+      CooperativeBankEndpoint::MINI_STATEMENT,
       $request_body,
     )
   );

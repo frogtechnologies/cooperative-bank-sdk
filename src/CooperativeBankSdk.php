@@ -11,9 +11,9 @@ class  CooperativeBankSdk
     protected SAI_CurlInterface $cURL;
 
     // Hard coded defaults for the testing environment
-    protected string $consumer_key = "zuP_MW9YUs69mpXPZaubHnEo1x8a";
-    protected string $consumer_secret = "lWzT7h9UGmsflIP0xzjCQSoV77wa";
-    protected string $base_url = "http://developer.co-opbank.co.ke:8280";
+    protected string $consumer_key = CooperativeBankEndpoint::DEFAULT_CONSUMER_KEY;
+    protected string $consumer_secret = CooperativeBankEndpoint::DEFAULT_CONSUMER_SECRET;
+    protected string $base_url = CooperativeBankEndpoint::DEFAULT_BASE_URL;
 
     public function __construct(
         SAI_CurlInterface $cURL = null
@@ -42,7 +42,7 @@ class  CooperativeBankSdk
         $auth_data = "grant_type=client_credentials";
 
         $options = [
-            CURLOPT_URL => $coop_base_url . '/token',
+            CURLOPT_URL => $coop_base_url . CooperativeBankEndpoint::ACCESS_TOKEN,
             CURLOPT_HTTPHEADER => $auth_headers,
             CURLOPT_SSL_VERIFYPEER  => false,
             CURLOPT_RETURNTRANSFER => true,
@@ -59,6 +59,8 @@ class  CooperativeBankSdk
         } else {
             $result = json_decode($response);
         }
+
+        print_r($response);
 
         $this->cURL->curl_close($ch);
 
@@ -90,7 +92,7 @@ class  CooperativeBankSdk
         ];
 
         $options = [
-            CURLOPT_URL => $coop_base_url . '/Enquiry/AccountBalance/1.0.0',
+            CURLOPT_URL => $coop_base_url . CooperativeBankEndpoint::ACCOUNT_BALANCE,
             CURLOPT_HTTPHEADER => $auth_headers,
             CURLOPT_SSL_VERIFYPEER  => false,
             CURLOPT_RETURNTRANSFER => true,
@@ -145,7 +147,7 @@ class  CooperativeBankSdk
         ];
 
         $options = [
-            CURLOPT_URL => $coop_base_url . '/Enquiry/MiniStatement/Account/1.0.0',
+            CURLOPT_URL => $coop_base_url . CooperativeBankEndpoint::FULL_STATEMENT,
             CURLOPT_HTTPHEADER => $auth_headers,
             CURLOPT_SSL_VERIFYPEER  => false,
             CURLOPT_RETURNTRANSFER => true,
@@ -198,7 +200,7 @@ class  CooperativeBankSdk
         ];
 
         $options = [
-            CURLOPT_URL => $coop_base_url . '/Enquiry/FullStatement/Account/1.0.0',
+            CURLOPT_URL => $coop_base_url . CooperativeBankEndpoint::MINI_STATEMENT,
             CURLOPT_HTTPHEADER => $auth_headers,
             CURLOPT_SSL_VERIFYPEER  => false,
             CURLOPT_RETURNTRANSFER => true,
@@ -248,7 +250,7 @@ class  CooperativeBankSdk
         ];
 
         $options = [
-            CURLOPT_URL => $coop_base_url . '/Enquiry/AccountTransactions/1.0.0',
+            CURLOPT_URL => $coop_base_url . CooperativeBankEndpoint::ACCOUNT_TRANSACTIONS,
             CURLOPT_HTTPHEADER => $auth_headers,
             CURLOPT_SSL_VERIFYPEER  => false,
             CURLOPT_RETURNTRANSFER => true,
@@ -294,7 +296,7 @@ class  CooperativeBankSdk
         ];
 
         $options = [
-            CURLOPT_URL => $coop_base_url . '/Enquiry/TransactionStatus/2.0.0',
+            CURLOPT_URL => $coop_base_url . CooperativeBankEndpoint::TRANSACTION_STATUS,
             CURLOPT_HTTPHEADER => $auth_headers,
             CURLOPT_SSL_VERIFYPEER  => false,
             CURLOPT_RETURNTRANSFER => true,
@@ -313,6 +315,56 @@ class  CooperativeBankSdk
         }
 
         $this->cURL->curl_close($ch);
+
+        return $result;
+    }
+
+    public function validate_account(
+        string $access_token,
+        string $message_reference,
+        string $account_number
+    ): ?object {
+        try {
+            $dotenv = Dotenv::createImmutable(__DIR__);
+            $dotenv->load();
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+        $coop_base_url = $_ENV['COOP_API_BASE_URL'] ?? $this->base_url;
+
+        $auth_headers = [
+            "Authorization: Bearer {$access_token}",
+            "Content-Type: application/json",
+        ];
+
+        $request_body = [
+            'MessageReference' => $message_reference,
+            'AccountNumber' => $account_number,
+        ];
+
+        $options = [
+            CURLOPT_URL => $coop_base_url . CooperativeBankEndpoint::VALIDATE_ACCOUNT,
+            CURLOPT_HTTPHEADER => $auth_headers,
+            CURLOPT_SSL_VERIFYPEER  => false,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => json_encode($request_body),
+        ];
+
+        $ch = $this->cURL->curl_init();
+        $this->cURL->curl_setopt_array($ch, $options);
+        $response = $this->cURL->curl_exec($ch);
+
+        if ($response === false) {
+            $result = $this->cURL->curl_error($ch);
+        } else {
+            $result = json_decode($response);
+        }
+
+
+        $this->cURL->curl_close($ch);
+
 
         return $result;
     }
