@@ -19,7 +19,7 @@ class  CooperativeBankSdk
     /**
      * Sets up the class to use a stubbed cURL implementation class
      * 
-     * @param SAI_CurlInterface|void $cURl: A curl implementation of the SAI_CurlInterface
+     * void|SAI_CurlInterface $cURl: A curl implementation of the SAI_CurlInterface
      */
     public function __construct(
         SAI_CurlInterface $cURL = null
