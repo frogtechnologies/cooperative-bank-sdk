@@ -40,7 +40,7 @@
     "scripts": {
         "test": "vendor\\bin\\pest",
         "test-coverage": "vendor\\bin\\pest --coverage-text --coverage-clover=coverage.clover",
-        "stan": "vendor\\bin\\phpstan analyse src tests --level=5"
+        "stan": "vendor\\bin\\phpstan analyse src tests --level=6"
     },
     "config": {
         "sort-packages": true

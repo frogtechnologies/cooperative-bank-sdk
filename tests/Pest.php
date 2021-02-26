@@ -85,7 +85,7 @@ function generate_message_reference(): string
     return substr(strtr(base64_encode($bytes), '+/', '-_'), 0, 19);
 }
 
-function confirm_standard_response(mixed $result) : void
+function confirm_standard_response(object $result): void
 {
     expect($result)->toBeObject();
     expect($result)->toHaveProperty('MessageReference');
