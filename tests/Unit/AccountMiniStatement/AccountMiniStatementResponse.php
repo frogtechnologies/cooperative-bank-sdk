@@ -4,12 +4,12 @@ namespace FROG\CooperativeBankSdk\Tests\Unit\AccountMiniStatement;
 
 class AccountMiniStatementResponse
 {
-    static public function auth_success()
+    static public function auth_success() : string
     {
         return '{"access_token":"4fbb7b9e-9c73-3155-ac14-c14fe744d104","scope":"am_application_scope default","token_type":"Bearer","expires_in":3600}';
     }
 
-    static public function success()
+    static public function success() : string
     {
         return '{
             "MessageReference": "40ca18c6765086089a1",
@@ -83,7 +83,7 @@ class AccountMiniStatementResponse
           }';
     }
 
-    static public function out_of_range_date_error()
+    static public function out_of_range_date_error() : string
     {
         return '{
             "MessageReference": "40ca18c6765086089a1",

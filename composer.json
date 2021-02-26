@@ -24,6 +24,7 @@
     },
     "require-dev": {
         "pestphp/pest": "^1.0",
+        "phpstan/phpstan": "^0.12.79",
         "phpunit/phpunit": "^9.5"
     },
     "autoload": {
@@ -38,7 +39,8 @@
     },
     "scripts": {
         "test": "vendor\\bin\\pest",
-        "test-coverage": "vendor\\bin\\pest --coverage-text --coverage-clover=coverage.clover"
+        "test-coverage": "vendor\\bin\\pest --coverage-text --coverage-clover=coverage.clover",
+        "stan": "vendor\\bin\\phpstan analyse src tests --level=5"
     },
     "config": {
         "sort-packages": true

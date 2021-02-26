@@ -4,12 +4,12 @@ namespace FROG\CooperativeBankSdk\Tests\Unit\AccountBalance;
 
 class AccountBalanceResponse
 {
-    static public function auth_success()
+    static public function auth_success() : string
     {
         return '{"access_token":"4fbb7b9e-9c73-3155-ac14-c14fe744d104","scope":"am_application_scope default","token_type":"Bearer","expires_in":3600}';
     }
 
-    static public function success()
+    static public function success() : string
     {
         return '{
             "MessageReference": "40ca18c6765086089a1",
@@ -34,7 +34,7 @@ class AccountBalanceResponse
           }';
     }
 
-    static public function long_message_ref_error()
+    static public function long_message_ref_error() : string
     {
         return '{
             "MessageReference": "ac980b8e-afe5-49b8-b348-d0af00e2f556",

@@ -8,12 +8,12 @@ use FROG\PhpCurlSAI\SAI_CurlInterface;
 
 class  CooperativeBankSdk
 {
-    protected $cURL;
+    protected SAI_CurlInterface $cURL;
 
     // Hard coded defaults for the testing environment
-    protected $consumer_key = "zuP_MW9YUs69mpXPZaubHnEo1x8a";
-    protected $consumer_secret = "lWzT7h9UGmsflIP0xzjCQSoV77wa";
-    protected $base_url = "http://developer.co-opbank.co.ke:8280";
+    protected string $consumer_key = "zuP_MW9YUs69mpXPZaubHnEo1x8a";
+    protected string $consumer_secret = "lWzT7h9UGmsflIP0xzjCQSoV77wa";
+    protected string $base_url = "http://developer.co-opbank.co.ke:8280";
 
     public function __construct(
         SAI_CurlInterface $cURL = null
@@ -23,14 +23,14 @@ class  CooperativeBankSdk
             $this->cURL = $cURL;
     }
 
-    function printer($content)
+    function printer(mixed $content): void
     {
         print "Response\n";
         print_r($content);
         print "Response\n";
     }
 
-    public function generate_access_token()
+    public function generate_access_token(): ?object
     {
         try {
             $dotenv = Dotenv::createImmutable(__DIR__);
@@ -77,7 +77,7 @@ class  CooperativeBankSdk
         string $access_token,
         string $message_reference,
         string $account_number
-    ) {
+    ): ?object {
         try {
             $dotenv = Dotenv::createImmutable(__DIR__);
             $dotenv->load();
@@ -129,7 +129,7 @@ class  CooperativeBankSdk
         string $account_number,
         string $start_date,
         string $end_date,
-    ) {
+    ): ?object {
 
         try {
             $dotenv = Dotenv::createImmutable(__DIR__);
@@ -182,7 +182,7 @@ class  CooperativeBankSdk
         string $account_number,
         string $start_date,
         string $end_date,
-    ) {
+    ): ?object {
 
         try {
             $dotenv = Dotenv::createImmutable(__DIR__);
