@@ -87,8 +87,8 @@ class  CooperativeBankSdk
     /**
      * Retrieves the balance of the specified account
      * 
-     * @param string $message_reference a unique client generated string to be a reference when a request is sent
      * @param string $account_number an account number from a cooperative bank branch
+     * @param string $message_reference a unique client generated string to be a reference when a request is sent
      * @return object an stdClass of the response from the API
      */
     public function check_account_balance(
@@ -146,14 +146,13 @@ class  CooperativeBankSdk
     /**
      * Retrieves the full statement of the specified account
      * 
-     * @param string $message_reference a unique client generated string to be a reference when a request is sent
      * @param string $account_number an account number from a cooperative bank branch
      * @param string $start_date the date at which the earliest transaction is to be fetched
      * @param string $end_date the date at which the latest transction is to be fetched
+     * @param string $message_reference a unique client generated string to be a reference when a request is sent
      * @return object an stdClass of the response from the API
      */
     public function get_account_full_statement(
-
         string $account_number,
         string $start_date,
         string $end_date,
@@ -210,14 +209,13 @@ class  CooperativeBankSdk
     /**
      * Retrieves the mini statement of the specified account
      * 
-     * @param string $message_reference a unique client generated string to be a reference when a request is sent
      * @param string $account_number an account number from a cooperative bank branch
      * @param string $start_date the date at which the earliest transaction is to be fetched
      * @param string $end_date the date at which the latest transaction is to be fetched
+     * @param string $message_reference a unique client generated string to be a reference when a request is sent
      * @return object an stdClass of the response from the API
      */
     public function get_account_mini_statement(
-
         string $account_number,
         string $start_date,
         string $end_date,
@@ -385,8 +383,8 @@ class  CooperativeBankSdk
     /**
      * Retrieves the validity of the specified account
      * 
-     * @param string $message_reference a unique client generated string to be a reference when a request is sent
      * @param string $account_number an account number from a cooperative bank branch
+     * @param string $message_reference a unique client generated string to be a reference when a request is sent
      * @return object an stdClass of the response from the API
      */
     public function validate_account(

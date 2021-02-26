@@ -6,6 +6,6 @@ coverage
 *.cache
 .env
 curl/
-.phpdoc/*
-.phive/*
-tools/*
+.phpdoc
+.phive
+tools

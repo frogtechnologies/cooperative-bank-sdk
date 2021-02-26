@@ -2,6 +2,7 @@
 
 All notable changes to `cooperative-bank-sdk` will be documented in this file
 
-## 1.0.0 - 201X-XX-XX
+## 0.1.0 - 2021-02-26
 
-- initial release
+- Initial release
+
