@@ -23,13 +23,6 @@ class  CooperativeBankSdk
             $this->cURL = $cURL;
     }
 
-    function printer(mixed $content): void
-    {
-        print "Response\n";
-        print_r($content);
-        print "Response\n";
-    }
-
     public function generate_access_token(): ?object
     {
         try {
