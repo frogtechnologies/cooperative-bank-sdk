@@ -11,7 +11,7 @@ it('can generate an access token', function () {
         get_valid_auth_options()
     );
 
-    $sdk = new CooperativeBankSdk();
+    $sdk = new CooperativeBankSdk($cURL);
     $result = $sdk->generate_access_token();
 
     expect($result)->toBeObject();

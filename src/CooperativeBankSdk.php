@@ -23,13 +23,6 @@ class  CooperativeBankSdk
             $this->cURL = $cURL;
     }
 
-    function printer(mixed $content): void
-    {
-        print "Response\n";
-        print_r($content);
-        print "Response\n";
-    }
-
     public function generate_access_token(): ?object
     {
         try {
@@ -206,6 +199,56 @@ class  CooperativeBankSdk
 
         $options = [
             CURLOPT_URL => $coop_base_url . '/Enquiry/FullStatement/Account/1.0.0',
+            CURLOPT_HTTPHEADER => $auth_headers,
+            CURLOPT_SSL_VERIFYPEER  => false,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => json_encode($request_body),
+        ];
+
+        $ch = $this->cURL->curl_init();
+        $this->cURL->curl_setopt_array($ch, $options);
+        $response = $this->cURL->curl_exec($ch);
+
+        if ($response === false) {
+            $result = $this->cURL->curl_error($ch);
+        } else {
+            $result = json_decode($response);
+        }
+
+        $this->cURL->curl_close($ch);
+
+        return $result;
+    }
+
+    public function get_account_transactions(
+        string $access_token,
+        string $message_reference,
+        string $account_number,
+        string $no_of_transactions
+    ): ?object {
+        try {
+            $dotenv = Dotenv::createImmutable(__DIR__);
+            $dotenv->load();
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+        $coop_base_url = $_ENV['COOP_API_BASE_URL'] ?? $this->base_url;
+
+        $auth_headers = [
+            "Authorization: Bearer {$access_token}",
+            "Content-Type: application/json",
+        ];
+
+        $request_body = [
+            'MessageReference' => $message_reference,
+            'AccountNumber' => $account_number,
+            "NoOfTransactions" => $no_of_transactions,
+        ];
+
+        $options = [
+            CURLOPT_URL => $coop_base_url . '/Enquiry/AccountTransactions/1.0.0',
             CURLOPT_HTTPHEADER => $auth_headers,
             CURLOPT_SSL_VERIFYPEER  => false,
             CURLOPT_RETURNTRANSFER => true,
