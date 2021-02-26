@@ -63,10 +63,8 @@ class  CooperativeBankSdk
 
         if ($response === false) {
             $result = $this->cURL->curl_error($ch);
-            $this->printer($result);
         } else {
             $result = json_decode($response);
-            $this->printer($response);
         }
 
         $this->cURL->curl_close($ch);
@@ -113,10 +111,8 @@ class  CooperativeBankSdk
 
         if ($response === false) {
             $result = $this->cURL->curl_error($ch);
-            $this->printer($result);
         } else {
             $result = json_decode($response);
-            $this->printer($response);
         }
 
 
