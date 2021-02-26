@@ -5,14 +5,14 @@ namespace FROG\CooperativeBankSdk\Tests\Unit\TransactionStatus;
 
 class TransactionStatusResponse
 {
-    static public function auth_success(): string
-    {
-        return '{"access_token":"4fbb7b9e-9c73-3155-ac14-c14fe744d104","scope":"am_application_scope default","token_type":"Bearer","expires_in":3600}';
-    }
+  static public function auth_success(): string
+  {
+    return '{"access_token":"4fbb7b9e-9c73-3155-ac14-c14fe744d104","scope":"am_application_scope default","token_type":"Bearer","expires_in":3600}';
+  }
 
-    static public function success()
-    {
-        return '{
+  static public function success(): string
+  {
+    return '{
             "messageReference": "40ca18c6765086089a1",
             "messageDateTime": "2021-02-26 15:23:32",
             "messageCode": "0",
@@ -36,11 +36,11 @@ class TransactionStatusResponse
               "responseDescription": "Success"
             }
           }';
-    }
+  }
 
-    public function no_message_reference_error()
-    {
-        return '{
+  public function no_message_reference_error(): string
+  {
+    return '{
             "MessageReference": "BTVd6xr7vEX97hWgNqM",
             "MessageDateTime": "2021-02-26 15:35:03",
             "MessageCode": -13,
@@ -55,5 +55,5 @@ class TransactionStatusResponse
             },
             "Destinations": null
           }';
-    }
+  }
 }

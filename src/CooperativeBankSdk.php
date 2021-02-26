@@ -274,7 +274,7 @@ class  CooperativeBankSdk
     public function check_transaction_status(
         string $access_token,
         string $message_reference
-    ) {
+    ): ?object {
         try {
             $dotenv = Dotenv::createImmutable(__DIR__);
             $dotenv->load();
