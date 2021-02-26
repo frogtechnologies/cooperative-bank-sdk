@@ -38,7 +38,7 @@ class TransactionStatusResponse
           }';
   }
 
-  public function no_message_reference_error(): string
+  static public function no_message_reference_error(): string
   {
     return '{
             "MessageReference": "BTVd6xr7vEX97hWgNqM",

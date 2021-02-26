@@ -61,7 +61,7 @@ it('fails to get the status of a non existent reference message', function () {
 
     // Setup to successfully retrieve account balance
     $cURL->setResponse(
-        TransactionStatusResponse::success(),
+        TransactionStatusResponse::no_message_reference_error(),
         get_valid_req_options(
             $token_result->access_token,
             '/Enquiry/TransactionStatus/2.0.0',
