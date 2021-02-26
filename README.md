@@ -1,8 +1,8 @@
 # Description
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/milleradulu/cooperative-bank-sdk.svg?style=flat-square)](https://packagist.org/packages/frog/cooperative-bank-sdk)
-[![Build Status](https://img.shields.io/travis/milleradulu/cooperative-bank-sdk/master.svg?style=flat-square)](https://travis-ci.com/github/frogtechnologies/cooperative-bank-sdk)
-[![Total Downloads](https://img.shields.io/packagist/dt/milleradulu/cooperative-bank-sdk.svg?style=flat-square)](https://packagist.org/packages/frog/cooperative-bank-sdk)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/frog/cooperative-bank-sdk.svg?style=flat-square)](https://packagist.org/packages/frog/cooperative-bank-sdk)
+[![Build Status](https://img.shields.io/travis/frog/cooperative-bank-sdk/master.svg?style=flat-square)](https://travis-ci.com/github/frogtechnologies/cooperative-bank-sdk)
+[![Total Downloads](https://img.shields.io/packagist/dt/frog/cooperative-bank-sdk.svg?style=flat-square)](https://packagist.org/packages/frog/cooperative-bank-sdk)
 
 An SDK to aid interaction with the Cooperative Bank API
 
