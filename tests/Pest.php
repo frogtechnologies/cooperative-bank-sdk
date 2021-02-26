@@ -24,9 +24,7 @@
 |
 */
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
-});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +37,10 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function get_valid_auth_options()
+/**
+ * @return array<int, mixed> 
+ */
+function get_valid_auth_options(): array
 {
     $consumer_key = "zuP_MW9YUs69mpXPZaubHnEo1x8a";
     $consumer_secret = "lWzT7h9UGmsflIP0xzjCQSoV77wa";
@@ -60,11 +61,17 @@ function get_valid_auth_options()
     ];
 }
 
+/**
+ * @param string $access_token
+ * @param string $path
+ * @param array<string, mixed> $body
+ * @return array<int, mixed> 
+ */
 function get_valid_req_options(
     string $access_token,
     string $path,
     array $body
-) {
+): array {
     $coop_base_url = "http://developer.co-opbank.co.ke:8280";
     $auth_headers = [
         "Authorization: Bearer {$access_token}",
@@ -79,4 +86,22 @@ function get_valid_req_options(
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => json_encode($body),
     ];
+}
+
+/**
+ * @return string
+ */
+function generate_message_reference(): string
+{
+    $bytes = random_bytes(19);
+    return substr(strtr(base64_encode($bytes), '+/', '-_'), 0, 19);
+}
+
+function confirm_standard_response(object $result): void
+{
+    expect($result)->toBeObject();
+    expect($result)->toHaveProperty('MessageReference');
+    expect($result)->toHaveProperty('MessageDateTime');
+    expect($result)->toHaveProperty('MessageCode');
+    expect($result)->toHaveProperty('MessageDescription');
 }
