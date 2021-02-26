@@ -37,6 +37,9 @@
 |
 */
 
+/**
+ * @return array<int, mixed> 
+ */
 function get_valid_auth_options(): array
 {
     $consumer_key = "zuP_MW9YUs69mpXPZaubHnEo1x8a";
@@ -58,6 +61,12 @@ function get_valid_auth_options(): array
     ];
 }
 
+/**
+ * @param string $access_token
+ * @param string $path
+ * @param array<string, mixed> $body
+ * @return array<int, mixed> 
+ */
 function get_valid_req_options(
     string $access_token,
     string $path,
@@ -79,6 +88,9 @@ function get_valid_req_options(
     ];
 }
 
+/**
+ * @return string
+ */
 function generate_message_reference(): string
 {
     $bytes = random_bytes(19);
